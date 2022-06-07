@@ -39,18 +39,11 @@ export default {
   ],
   methods: {
     supprimerLigne: function (event) {
-      // console.log(event);
-      // console.log(event.srcElement.offsetParent.parentElement.id);
-      // this.idLigne = parseInt(event.srcElement.offsetParent.parentElement.id);
-      // console.log("Id Ligne : ", this.idLigne);
-      console.log("ID User : ", event);
       this.$store.commit("deleteUserFromVuex", event);
     }
   },
   beforeMount() {
     this.usersList = this.$store.state.usersFromVuex;
-    console.log("Store : ", this.$store.state.usersFromVuex);
-    console.log(this.usersList);
     this.columns = Object.keys(this.usersList[0]);
   }
 }

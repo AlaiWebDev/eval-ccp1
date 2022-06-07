@@ -4,13 +4,10 @@
     <form>
       <label v-for="(value, property, index) in userDatas" :key="index">
         {{ property }}
-        <input v-if="!value.city && !value.name" type="text" v-bind:value="value" :disabled="property === 'id'">
+        <input v-if="!value.city && !value.name" type="text" v-bind:value="value" :disabled="property === 'id'" v-bind:id="property">
         <textarea disabled v-else v-bind:value="value.city ? cityAddress : value.name ? companyDatas : value"></textarea>
       </label>
-      
-      <!-- <span>{{ value }}</span>
-      <span>{{ property }}</span>
-      <span>{{ index }}</span> -->
+      <input type="submit" value="Valider" @click.prevent="majUser">
     </form>
   </div>
 </template>
@@ -20,7 +17,33 @@ export default {
   data() {
     return {
       userDatas: [],
-      disabled: false
+      disabled: false,
+      datasFromInput: []
+    }
+  },
+  methods: {
+    majUser: function () {
+      this.datasFromInput = document.querySelectorAll("input[type=text]");
+      this.datasFromInput.forEach(elem => {
+        switch (elem.id) {
+          case "name":
+            this.userDatas.name = elem.value;
+            break;
+          case "username":
+            this.userDatas.username = elem.value;
+            break;
+          case "email":
+            this.userDatas.email = elem.value;
+            break;
+          case "phone":
+            this.userDatas.phone = elem.value;
+            break;
+          case "website":
+            this.userDatas.website = elem.value;
+            break;
+          default:
+        }
+      });
     }
   },
   computed: {
@@ -36,11 +59,7 @@ export default {
       "currentUser"
     ],
   beforeMount() {
-    console.log("ID : ", this.id);
-    console.log(typeof this.id);
-    console.log("Store : ", this.$store.state.usersFromVuex);
     this.userDatas = this.$store.state.usersFromVuex[(this.$store.state.usersFromVuex).findIndex(v => parseInt(v.id) === parseInt(this.id))];
-    console.log(this.userDatas);
   }
 }
 </script>
