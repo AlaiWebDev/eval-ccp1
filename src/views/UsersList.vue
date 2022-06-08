@@ -52,7 +52,6 @@ export default {
   .users-list {
     width: 70%;
     margin: 5rem auto;
-    /* border: 1px solid red; */
   }
 
   table {
@@ -65,6 +64,7 @@ export default {
   table {
     border: 3px solid #000;
   }
+
   th, td {
     border: 1px solid #000;
     padding: .5rem;
@@ -75,16 +75,17 @@ export default {
     background-color: #4e7b7f;
     color: white;
   }
+
   td a {
     margin: .5rem auto;
     border-radius: 10px;
     color: #c5d0c6;
     text-decoration: none;
-    /* line-height: 0; */
     padding: .3rem;
     font-weight: bold;
     cursor: pointer;
   }
+
   td input {
     margin: .5rem auto;
     padding: .3rem;
@@ -101,6 +102,7 @@ export default {
     background-color: red;
     color: white;
   }
+  
   td a:hover {
     background-color: green;
     color: white;
