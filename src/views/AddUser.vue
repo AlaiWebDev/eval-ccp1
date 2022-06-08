@@ -5,7 +5,7 @@
       <label v-for="(value, property, index) in userFields" :key="index">
         {{ value.toUpperCase() }}
         <input v-if="value !== 'id' && (value !== 'address' && value !== 'company')" type="text" v-bind:id="value">
-        <textarea v-else-if="value === 'address' || value === 'company'"></textarea>
+        <textarea v-else-if="value === 'address' || value === 'company'" v-bind:id="value"></textarea>
         <input v-else type="text" v-bind:id="value">
       </label>
       <router-link :to="{name: 'usersList'}" exact v-on:click="addUser">Valider</router-link>
@@ -19,36 +19,37 @@ export default {
     return {
       userFields: [],
       datasFromInput: [],
+      datasFromTextarea: [],
       userDatas: [],
       newUser: {}
     }
   },
   methods: {
     addUser: function () {
-      this.datasFromInput = document.querySelectorAll("input[type=text]");
-      this.datasFromInput.forEach(elem => {
+      this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
+      this.datasFromInput.forEach(input => {
       this.newUser.id = (this.nextId) + 1;
-        switch (elem.id) {
+        switch (input.id) {
           case "name":
-            this.newUser.name = elem.value;
+            this.newUser.name = input.value;
             break;
           case "username":
-            this.newUser.username = elem.value;
+            this.newUser.username = input.value;
             break;
           case "email":
-            this.newUser.email = elem.value;
-            break;
-          case "phone":
-            this.newUser.phone = elem.value;
-            break;
-          case "website":
-            this.newUser.website = elem.value;
+            this.newUser.email = input.value;
             break;
           case "address":
-            this.newUser.address = elem.value;
+            this.newUser.address = input.value;
+            break;
+          case "phone":
+            this.newUser.phone = input.value;
+            break;
+          case "website":
+            this.newUser.website = input.value;
             break;
           case "company":
-            this.newUser.company = elem.value;
+            this.newUser.company = input.value;
             break;
           default:
         }
@@ -81,6 +82,14 @@ export default {
     margin: .3rem auto 1rem auto;
   }
 
+  form label input[type=text]{
+    margin: auto;
+    margin-top: .5rem;
+    text-align: center;
+    padding: .5rem;
+    border-radius: 10px;
+  }
+
   form label:first-of-type {
     display: none;
   }
@@ -92,7 +101,10 @@ export default {
   form textarea {
     height: 120px;
     width: 20rem;
+    border: 2px solid black;
+    border-radius: 10px;
     margin: auto;
+    margin-top: .5rem;
     resize: none;
   }
 

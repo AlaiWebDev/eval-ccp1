@@ -14,32 +14,53 @@
         <tr v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
             <td v-for="(oneUser, index) in user" :key="index">{{ oneUser.city ? oneUser.city.toUpperCase() : oneUser.name ? oneUser.name : oneUser }}</td>
             <td>
-              <input type="button" @click="supprimerLigne(user.id)" value="Supprimer">
+              <input id="showModal" type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
               <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
                 <span>Modifier</span>
+                <Teleport to="body">
+                <modal :show="showModal" :userId="activeUserId" :userName="activeUserName" @cancel="showModal = false" @confirm="supprimerLigne">
+                </modal>
+              </Teleport>
               </router-link>
+              
+              
             </td>
         </tr>
       </tbody>
     </table>
   </div>
+  
 </template>
 <script>
+import Modal from "../components/Modal";
 export default {
   name: 'usersList',
+  components: {
+    Modal
+  },
   data() {
     return {
       usersList: {},
       columns: [],
-      idLigne: 0
+      idLigne: 0,
+      showModal: false,
+      activeUserId: 0,
+      activeUsername: ""
     };
   },
   props: [
 
   ],
   methods: {
-    supprimerLigne: function (event) {
-      this.$store.commit("deleteUserFromVuex", event);
+    supprimerLigne: function ({idUser}) {
+      this.$store.commit("deleteUserFromVuex", idUser);
+      this.showModal = false;
+      
+    },
+    afficherModal: function (idUser, usernameUser) {
+      this.activeUserId = idUser;
+      this.activeUserName = usernameUser;
+      this.showModal = true;
     }
   },
   beforeMount() {

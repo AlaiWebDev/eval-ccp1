@@ -1,9 +1,9 @@
 <template>
   <div class="change-user-form">
-    <h1>Modification de l'utilisateur {{ currentUser }}</h1>
+    <h1>Modification de l'utilisateur <span>{{ currentUser }}</span></h1>
     <form>
       <label v-for="(value, property, index) in userDatas" :key="index">
-        {{ property }}
+        {{ property.toUpperCase() }}
         <input v-if="!value.city && !value.name" type="text" v-bind:value="value" :disabled="property === 'id'" v-bind:id="property">
         <textarea disabled v-else v-bind:value="value.city ? cityAddress : value.name ? companyDatas : value"></textarea>
       </label>
@@ -51,7 +51,7 @@ export default {
       return `Name : ${this.userDatas.company.name},\nBusiness : ${this.userDatas.company.bs},\nTagline : ${this.userDatas.company.catchPhrase}`;
     },
     cityAddress: function () {
-      return `City : ${this.userDatas.address.city}, \nGeo : \nLat : ${this.userDatas.address.geo.lat} \nLng : ${this.userDatas.address.geo.lng},\nStreet : ${this.userDatas.address.street},\nSuite : ${this.userDatas.address.suite},\nZipcode : ${this.userDatas.address.zipcode}`;
+      return `City : ${this.userDatas.address.city}, \nGeo : \n     Lat : ${this.userDatas.address.geo.lat} \n     Lng : ${this.userDatas.address.geo.lng},\nStreet : ${this.userDatas.address.street},\nSuite : ${this.userDatas.address.suite},\nZipcode : ${this.userDatas.address.zipcode}`;
     }
   },
     props: [
@@ -68,7 +68,16 @@ export default {
     width: 50%;
     margin: 5rem auto;
   }
-  
+  h1 span {
+    display: block;
+    width: fit-content;
+    margin: .2rem auto;
+    border-radius: 10px;
+    color: #154a44;
+    background-color: #fbc522;
+    padding: .5rem;
+    text-transform: uppercase;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -76,13 +85,27 @@ export default {
 
   form label {
     margin: 1rem;
+    width: fit-content;
     font-weight: bolder;
+  }
+  form input[type=text] {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    margin-top: .5rem;
+    text-align: center;
+    padding: .5rem;
+    border-radius: 10px;
   }
 
   form textarea {
-    height: 120px;
-    width: 300px;
+    display: block;
+    height: 140px;
+    width: 20rem;
+    margin: auto;
     resize: none;
+    margin-top: .5rem;
+    border-radius: 10px;
   }
 
   a {

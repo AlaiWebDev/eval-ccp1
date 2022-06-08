@@ -8,6 +8,9 @@
     </nav>
   </header>
   <router-view/>
+  <footer>
+    &copy; 2022 - Alain ORLUK - ID Formation Strasbourg
+  </footer>
 </template>
 <script>
 export default {
@@ -27,13 +30,21 @@ export default {
 }
 </script>
 <style>
-body {
-    background-color: #f4f4f4;
-    
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
 }
+body {
+    margin-top: 15rem;
+    background-color: #f4f4f4;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
@@ -54,9 +65,12 @@ h1 {
 
 header {
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100vw;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
+
   background-color: #5c8c9c;
   /* border: 1px solid red; */
 }
@@ -94,5 +108,15 @@ nav a:hover {
 
 nav a.router-link-exact-active {
   color: #fbc522;
+}
+
+footer {
+  position: sticky;
+  top: 100vh;
+  height: 2rem;
+  padding: 2rem;
+  font-weight: bolder;
+  line-height: 0;
+  background-color: #5c8c9c;
 }
 </style>
