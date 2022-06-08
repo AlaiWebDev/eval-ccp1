@@ -11,7 +11,7 @@ const routes = [
     component: AccueilView
   },
   {
-    path: '/usersList',
+    path: '/users',
     name: 'usersList',
     component: UsersList
   },

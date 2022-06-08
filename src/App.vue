@@ -3,7 +3,7 @@
     <img alt="Logo ID Formation" src="@/assets/logo-Id-Formation.png">
     <nav>
       <router-link to="/">Accueil</router-link>
-      <router-link to="/usersList">Liste des utilisateurs</router-link>
+      <router-link to="/users">Liste des utilisateurs</router-link>
       <router-link to="/addUser">Ajouter utilisateur</router-link>
     </nav>
   </header>

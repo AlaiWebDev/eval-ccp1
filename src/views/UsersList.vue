@@ -22,8 +22,6 @@
                 </modal>
               </Teleport>
               </router-link>
-              
-              
             </td>
         </tr>
       </tbody>
@@ -45,7 +43,7 @@ export default {
       idLigne: 0,
       showModal: false,
       activeUserId: 0,
-      activeUsername: ""
+      activeUserName: ""
     };
   },
   props: [
