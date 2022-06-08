@@ -64,7 +64,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
   .add-user-form {
     width: 50%;
     margin: 5rem auto;
@@ -105,6 +105,7 @@ export default {
     border-radius: 10px;
     margin: auto;
     margin-top: .5rem;
+    padding: .5rem;
     resize: none;
   }
 
@@ -115,7 +116,6 @@ export default {
   padding: 1rem;
   margin: auto 1rem;
   border-radius: 10px;
-  box-shadow : 4px 3px 0.1em 0.1em #c5d0c6;
   box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
   background-color: #154a44;
   }

@@ -72,16 +72,15 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
+
 .modal-default-button {
   cursor: pointer;
   font-weight: bold;
-  /* line-height: 0px; */
   text-align: center;
   color: #c5d0c6;
   padding: .5rem;
   margin: 1rem 1rem;
   border-radius: 10px;
-  box-shadow : 4px 3px 0.1em 0.1em #c5d0c6;
   box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
   background-color: #154a44;
 }
@@ -93,14 +92,8 @@ export default {
 }
 
 /*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
+ * Styles appliqués via l'élément <transition> 
  */
-
 .modal-enter-from {
   opacity: 0;
 }

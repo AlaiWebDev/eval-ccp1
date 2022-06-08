@@ -68,6 +68,7 @@ export default {
     width: 50%;
     margin: 5rem auto;
   }
+
   h1 span {
     display: block;
     width: fit-content;
@@ -78,9 +79,11 @@ export default {
     padding: .5rem;
     text-transform: uppercase;
   }
+
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   form label {
@@ -88,6 +91,7 @@ export default {
     width: fit-content;
     font-weight: bolder;
   }
+
   form input[type=text] {
     display: block;
     width: fit-content;
@@ -100,9 +104,10 @@ export default {
 
   form textarea {
     display: block;
-    height: 140px;
+    height: 160px;
     width: 20rem;
     margin: auto;
+    padding: .5rem;
     resize: none;
     margin-top: .5rem;
     border-radius: 10px;
@@ -115,7 +120,6 @@ export default {
   padding: 1rem;
   margin: auto 1rem;
   border-radius: 10px;
-  box-shadow : 4px 3px 0.1em 0.1em #c5d0c6;
   box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
   background-color: #154a44;
   }

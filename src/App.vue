@@ -36,6 +36,7 @@ export default {
   padding: 0;
   font-size: 16px;
 }
+
 body {
     margin-top: 15rem;
     background-color: #f4f4f4;
@@ -53,7 +54,7 @@ body::-webkit-scrollbar {
 }
 
 h1 {
-  width: 50vw;
+  width: 40vw;
   margin: 1rem auto;
   margin-bottom: 2rem;
   padding: 1rem;
@@ -72,7 +73,6 @@ header {
   align-items: center;
 
   background-color: #5c8c9c;
-  /* border: 1px solid red; */
 }
 
 header img {
@@ -95,7 +95,6 @@ nav a {
   padding: 1rem;
   margin: auto 1rem;
   border-radius: 10px;
-  box-shadow : 4px 3px 0.1em 0.1em #c5d0c6;
   box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
   background-color: #154a44;
 }

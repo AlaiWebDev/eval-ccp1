@@ -14,7 +14,7 @@
         <tr v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
             <td v-for="(oneUser, index) in user" :key="index">{{ oneUser.city ? oneUser.city.toUpperCase() : oneUser.name ? oneUser.name : oneUser }}</td>
             <td>
-              <input id="showModal" type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
+              <input type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
               <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
                 <span>Modifier</span>
                 <Teleport to="body">
@@ -86,7 +86,7 @@ export default {
 
   th, td {
     border: 1px solid #000;
-    padding: .5rem;
+    padding: 1rem;
   }
 
   th {
@@ -96,16 +96,21 @@ export default {
   }
 
   td a {
-    margin: .5rem auto;
+    display: block;
+    width: 8rem;
     border-radius: 10px;
     color: #c5d0c6;
     text-decoration: none;
     padding: .3rem;
     font-weight: bold;
+    background-color: #154a44;
+    box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
     cursor: pointer;
   }
 
   td input {
+    width: 8rem;
+    display: block;
     margin: .5rem auto;
     padding: .3rem;
     border: none;
@@ -113,6 +118,7 @@ export default {
     color: #c5d0c6;
     font-size: inherit;
     font-weight: bold;
+    box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
     background-color: inherit;
     cursor: pointer;
   }
