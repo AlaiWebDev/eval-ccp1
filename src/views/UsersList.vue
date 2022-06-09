@@ -18,9 +18,9 @@
               <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
                 <span>Modifier</span>
                 <Teleport to="body">
-                <modal :show="showModal" :userId="activeUserId" :userName="activeUserName" @cancel="showModal = false" @confirm="supprimerLigne">
-                </modal>
-              </Teleport>
+                  <modal :show="showModal" :userId="activeUserId" :userName="activeUserName" @cancel="showModal = false" @confirm="supprimerLigne">
+                  </modal>
+                </Teleport>
               </router-link>
             </td>
         </tr>
