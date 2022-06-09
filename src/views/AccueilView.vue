@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import AccueilText from '@/components/AccueilText.vue'
 
 export default {
@@ -18,7 +17,7 @@ export default {
 <style>
 .home{
   width: 50%;
+  height: 59vh;
   margin: 5rem auto;
-  /* border: 1px solid red; */
 }
 </style>

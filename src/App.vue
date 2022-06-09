@@ -3,11 +3,14 @@
     <img alt="Logo ID Formation" src="@/assets/logo-Id-Formation.png">
     <nav>
       <router-link to="/">Accueil</router-link>
-      <router-link to="/usersList">Liste des utilisateurs</router-link>
+      <router-link to="/users">Liste des utilisateurs</router-link>
       <router-link to="/addUser">Ajouter utilisateur</router-link>
     </nav>
   </header>
   <router-view/>
+  <footer>
+    &copy; 2022 - Alain ORLUK - ID Formation Strasbourg
+  </footer>
 </template>
 <script>
 export default {
@@ -27,13 +30,22 @@ export default {
 }
 </script>
 <style>
-body {
-    background-color: #f4f4f4;
-    
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
 }
+
+body {
+    margin-top: 15rem;
+    background-color: #f4f4f4;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
@@ -42,7 +54,7 @@ body::-webkit-scrollbar {
 }
 
 h1 {
-  width: 50vw;
+  width: 40vw;
   margin: 1rem auto;
   margin-bottom: 2rem;
   padding: 1rem;
@@ -54,11 +66,13 @@ h1 {
 
 header {
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100vw;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
+
   background-color: #5c8c9c;
-  /* border: 1px solid red; */
 }
 
 header img {
@@ -81,7 +95,6 @@ nav a {
   padding: 1rem;
   margin: auto 1rem;
   border-radius: 10px;
-  box-shadow : 4px 3px 0.1em 0.1em #c5d0c6;
   box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
   background-color: #154a44;
 }
@@ -94,5 +107,15 @@ nav a:hover {
 
 nav a.router-link-exact-active {
   color: #fbc522;
+}
+
+footer {
+  position: sticky;
+  top: 100vh;
+  height: 2rem;
+  padding: 2rem;
+  font-weight: bolder;
+  line-height: 0;
+  background-color: #5c8c9c;
 }
 </style>

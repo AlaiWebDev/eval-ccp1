@@ -11,11 +11,8 @@ export default createStore({
       state.usersFromVuex = nouvelle_valeur;
   },
     deleteUserFromVuex(state,idUser) {
-      for (let index = 0; index < state.usersFromVuex.length; index++) {
-        if (state.usersFromVuex[index].id === idUser) {
-          console.log("Id du tableau du Store : ", state.usersFromVuex[index].id);
-          console.log("Name : ", state.usersFromVuex[index].name);
-          console.log("ID envoyé à la mutation : ", idUser);
+      for (const element of state.usersFromVuex) {
+        if (element.id === idUser) {
           state.usersFromVuex.splice(state.usersFromVuex.findIndex(v => v.id === idUser), 1);
         }
       }

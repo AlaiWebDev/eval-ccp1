@@ -12,45 +12,61 @@
       </thead>
       <tbody>
         <tr v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
-            <td v-for="(oneUser, index) in user" :key="index">{{ oneUser.city ? oneUser.city.toUpperCase() : oneUser.name ? oneUser.name : oneUser }}</td>
+            <td v-for="(oneUser, index) in user" :key="index">{{ oneUser }}</td>
             <td>
-              <input type="button" @click="supprimerLigne(user.id)" value="Supprimer">
+              <input type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
               <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
                 <span>Modifier</span>
+                <Teleport to="body">
+                  <modal :show="showModal" :userId="activeUserId" :userName="activeUserName" @cancel="showModal = false" @confirm="supprimerLigne">
+                  </modal>
+                </Teleport>
               </router-link>
             </td>
         </tr>
       </tbody>
     </table>
   </div>
+  
 </template>
 <script>
+import Modal from "../components/Modal";
 export default {
   name: 'usersList',
+  components: {
+    Modal
+  },
   data() {
     return {
-      usersList: {},
+      usersList: [],
       columns: [],
-      idLigne: 0
+      idLigne: 0,
+      showModal: false,
+      activeUserId: 0,
+      activeUserName: ""
     };
   },
   props: [
 
   ],
   methods: {
-    supprimerLigne: function (event) {
-      // console.log(event);
-      // console.log(event.srcElement.offsetParent.parentElement.id);
-      // this.idLigne = parseInt(event.srcElement.offsetParent.parentElement.id);
-      // console.log("Id Ligne : ", this.idLigne);
-      console.log("ID User : ", event);
-      this.$store.commit("deleteUserFromVuex", event);
+    supprimerLigne: function ({idUser}) {
+      this.$store.commit("deleteUserFromVuex", idUser);
+      this.showModal = false;
+      
+    },
+    afficherModal: function (idUser, usernameUser) {
+      this.activeUserId = idUser;
+      this.activeUserName = usernameUser;
+      this.showModal = true;
     }
   },
   beforeMount() {
     this.usersList = this.$store.state.usersFromVuex;
-    console.log("Store : ", this.$store.state.usersFromVuex);
-    console.log(this.usersList);
+    this.usersList.forEach(user => {
+      delete user.address.geo;
+      delete user.address.suite;
+    })
     this.columns = Object.keys(this.usersList[0]);
   }
 }
@@ -59,7 +75,6 @@ export default {
   .users-list {
     width: 70%;
     margin: 5rem auto;
-    /* border: 1px solid red; */
   }
 
   table {
@@ -72,9 +87,10 @@ export default {
   table {
     border: 3px solid #000;
   }
+
   th, td {
     border: 1px solid #000;
-    padding: .5rem;
+    padding: 1rem;
   }
 
   th {
@@ -82,17 +98,23 @@ export default {
     background-color: #4e7b7f;
     color: white;
   }
+
   td a {
-    margin: .5rem auto;
+    display: block;
+    width: 8rem;
     border-radius: 10px;
     color: #c5d0c6;
     text-decoration: none;
-    /* line-height: 0; */
     padding: .3rem;
     font-weight: bold;
+    background-color: #154a44;
+    box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
     cursor: pointer;
   }
+
   td input {
+    width: 8rem;
+    display: block;
     margin: .5rem auto;
     padding: .3rem;
     border: none;
@@ -100,6 +122,7 @@ export default {
     color: #c5d0c6;
     font-size: inherit;
     font-weight: bold;
+    box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
     background-color: inherit;
     cursor: pointer;
   }
@@ -108,6 +131,7 @@ export default {
     background-color: red;
     color: white;
   }
+  
   td a:hover {
     background-color: green;
     color: white;
