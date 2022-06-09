@@ -34,6 +34,9 @@ export default {
 }
 </script>
 <style>
+*{
+  user-select: none;
+}
   .modal-mask {
   position: fixed;
   z-index: 9998;

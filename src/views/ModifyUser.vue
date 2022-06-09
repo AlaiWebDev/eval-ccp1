@@ -5,7 +5,7 @@
       <label v-for="(value, property, index) in userDatas" :key="index">
         {{ property.toUpperCase() }}
         <input v-if="!value.city && !value.name" type="text" v-bind:value="value" :disabled="property === 'id'" v-bind:id="property">
-        <textarea disabled v-else v-bind:value="value.city ? cityAddress : value.name ? companyDatas : value"></textarea>
+        <textarea v-else v-bind:value="value.city ? cityAddress : value.name ? companyDatas : value" v-bind:id="property"></textarea>
       </label>
       <router-link :to="{name: 'usersList'}" exact v-on:click="majUser">Valider</router-link>
     </form>
@@ -18,12 +18,14 @@ export default {
     return {
       userDatas: [],
       disabled: false,
-      datasFromInput: []
+      datasFromInput: [],
+      myWorkingVarCompany: "",
+      myWorkingVarAddress: ""
     }
   },
   methods: {
     majUser: function () {
-      this.datasFromInput = document.querySelectorAll("input[type=text]");
+      this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
       this.datasFromInput.forEach(elem => {
         switch (elem.id) {
           case "name":
@@ -35,11 +37,17 @@ export default {
           case "email":
             this.userDatas.email = elem.value;
             break;
+          case "address":
+            this.userDatas.address = elem.value;
+            break;
           case "phone":
             this.userDatas.phone = elem.value;
             break;
           case "website":
             this.userDatas.website = elem.value;
+            break;
+          case "company":
+            this.userDatas.company = elem.value;
             break;
           default:
         }
@@ -47,11 +55,15 @@ export default {
     }
   },
   computed: {
-    companyDatas: function () {
-      return `Name : ${this.userDatas.company.name},\nBusiness : ${this.userDatas.company.bs},\nTagline : ${this.userDatas.company.catchPhrase}`;
+    companyDatas () {
+      this.myWorkingVarCompany = (JSON.stringify(this.userDatas.company)).replace(/[{}]/g, "");
+      this.myWorkingVarCompany = this.myWorkingVarCompany.replace(/[""]/g, "");
+      return this.myWorkingVarCompany.split(",").join("\n");
     },
-    cityAddress: function () {
-      return `City : ${this.userDatas.address.city}, \nGeo : \n     Lat : ${this.userDatas.address.geo.lat} \n     Lng : ${this.userDatas.address.geo.lng},\nStreet : ${this.userDatas.address.street},\nSuite : ${this.userDatas.address.suite},\nZipcode : ${this.userDatas.address.zipcode}`;
+    cityAddress () {
+      this.myWorkingVarAddress = (JSON.stringify(this.userDatas.address)).replace(/[{}]/g, "");
+      this.myWorkingVarAddress = this.myWorkingVarAddress.replace(/[""]/g, "");
+      return this.myWorkingVarAddress.split(",").join("\n");
     }
   },
     props: [
@@ -104,13 +116,19 @@ export default {
 
   form textarea {
     display: block;
-    height: 160px;
+    height: 55px;
     width: 20rem;
-    margin: auto;
-    padding: .5rem;
-    resize: none;
-    margin-top: .5rem;
+    border: 2px solid black;
     border-radius: 10px;
+    line-height: 1rem;
+    margin: auto;
+    margin-top: .5rem;
+    padding-left: .5rem;
+    resize: none;
+  }
+
+  #company {
+     height: 70px;
   }
 
   a {

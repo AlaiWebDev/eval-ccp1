@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
-            <td v-for="(oneUser, index) in user" :key="index">{{ oneUser.city ? oneUser.city.toUpperCase() : oneUser.name ? oneUser.name : oneUser }}</td>
+            <td v-for="(oneUser, index) in user" :key="index">{{ oneUser }}</td>
             <td>
               <input type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
               <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      usersList: {},
+      usersList: [],
       columns: [],
       idLigne: 0,
       showModal: false,
@@ -63,6 +63,10 @@ export default {
   },
   beforeMount() {
     this.usersList = this.$store.state.usersFromVuex;
+    this.usersList.forEach(user => {
+      delete user.address.geo;
+      delete user.address.suite;
+    })
     this.columns = Object.keys(this.usersList[0]);
   }
 }

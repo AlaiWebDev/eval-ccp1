@@ -5,7 +5,10 @@
       <label v-for="(value, property, index) in userFields" :key="index">
         {{ value.toUpperCase() }}
         <input v-if="value !== 'id' && (value !== 'address' && value !== 'company')" type="text" v-bind:id="value">
-        <textarea v-else-if="value === 'address' || value === 'company'" v-bind:id="value"></textarea>
+        <textarea v-model="listOfFieldsAddress" v-else-if="value === 'address'" v-bind:id="value">
+        </textarea>
+        <textarea v-model="listOfFieldsCompany" v-else-if="value === 'company'" v-bind:id="value">
+        </textarea>
         <input v-else type="text" v-bind:id="value">
       </label>
       <router-link :to="{name: 'usersList'}" exact v-on:click="addUser">Valider</router-link>
@@ -21,7 +24,9 @@ export default {
       datasFromInput: [],
       datasFromTextarea: [],
       userDatas: [],
-      newUser: {}
+      newUser: {},
+      userAddress : ["city:\n", "street:\n", "zipcode:"],
+      userCompany : ["name:\n", "business:\n", "tagline:"],
     }
   },
   methods: {
@@ -55,7 +60,15 @@ export default {
         }
       });
       this.userDatas.push(this.newUser);
-    }
+    },
+  },
+  computed: {
+    listOfFieldsAddress() {
+        return (this.userAddress.toString().split(',').join(''));
+      },
+    listOfFieldsCompany() {
+        return (this.userCompany.toString().split(',').join(''));
+      },
   },
   beforeMount() {
     this.userFields = Object.getOwnPropertyNames(this.$store.state.usersFromVuex[0]);
@@ -99,17 +112,24 @@ export default {
   }
   
   form textarea {
-    height: 120px;
+    height: 55px;
     width: 20rem;
     border: 2px solid black;
     border-radius: 10px;
+    line-height: 1rem;
     margin: auto;
     margin-top: .5rem;
-    padding: .5rem;
+    padding-left: .5rem;
     resize: none;
   }
 
+  #company {
+     height: 55px;
+  }
+
   a {
+  display: block;
+  width: 8rem;
   font-weight: bold;
   color: #c5d0c6;
   text-decoration: none;
