@@ -2,6 +2,7 @@
   <div class="users-list">
     <h1>Liste des utilisateurs</h1>
     <table>
+      <caption></caption>
       <thead>
         <tr>
           <th v-for="(column, index) in columns" :key="index">
@@ -12,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
-            <td v-for="(oneUser, index) in user" :key="index">{{ oneUser }}</td>
+            <td v-for="(oneUser, key, index) in user" :key="index">{{ key === 'address' ? oneUser.city : key === 'company' ? oneUser.name : oneUser}}</td>
             <td>
               <input type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
               <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
@@ -26,6 +27,22 @@
         </tr>
       </tbody>
     </table>
+    <ul v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
+      <li v-for="(oneUser, key, index) in user" :key="index">
+        <span class="user-prop">{{ key }}</span>
+        <span class="user-value">{{ key === 'address' ? oneUser.city : key === 'company' ? oneUser.name : oneUser }}</span> 
+      </li>
+      <li>
+        <input type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
+          <router-link :to="{ name: 'modifyUser', params: { id: user.id, currentUser: user.username } }"> 
+            <span>Modifier</span>
+            <Teleport to="body">
+              <modal :show="showModal" :userId="activeUserId" :userName="activeUserName" @cancel="showModal = false" @confirm="supprimerLigne">
+              </modal>
+            </Teleport>
+          </router-link>
+      </li>
+    </ul>
   </div>
   
 </template>
@@ -46,9 +63,8 @@ export default {
       activeUserName: ""
     };
   },
-  props: [
-
-  ],
+  props: {
+  },
   methods: {
     supprimerLigne: function ({idUser}) {
       this.$store.commit("deleteUserFromVuex", idUser);
@@ -72,14 +88,15 @@ export default {
 }
 </script>
 <style>
-  .users-list {
-    width: 70%;
-    margin: 5rem auto;
+@media (min-width: 1061px){
+  ul {
+    display: none;
   }
 
   table {
-    width: 100%;
-    margin: auto;
+    display: table;
+    width: 80vw;
+    margin: 2rem auto;
     border-collapse: collapse;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
@@ -90,7 +107,7 @@ export default {
 
   th, td {
     border: 1px solid #000;
-    padding: 1rem;
+    padding: .5vw .5vw;
   }
 
   th {
@@ -101,7 +118,8 @@ export default {
 
   td a {
     display: block;
-    width: 8rem;
+    width: 8vw;
+    margin:auto;
     border-radius: 10px;
     color: #c5d0c6;
     text-decoration: none;
@@ -113,14 +131,13 @@ export default {
   }
 
   td input {
-    width: 8rem;
+    width: 8vw;
     display: block;
     margin: .5rem auto;
     padding: .3rem;
     border: none;
     border-radius: 10px;
     color: #c5d0c6;
-    font-size: inherit;
     font-weight: bold;
     box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
     background-color: inherit;
@@ -140,5 +157,66 @@ export default {
   tbody tr:nth-child(odd){
   background-color: #5c8c8c;
   color: #c5d0c6;
+  }
+}
+@media (max-width: 1060px) {
+  table {
+  display: none;
+  }
+  ul {
+    display: block;
+    list-style-type: none;
+  border:1px solid black;
+  margin: 1rem;
+  }
+
+  ul li:first-of-type {
+    display: none;
+  }
+  
+  .user-prop {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: .3rem;
+  }
+  li a {
+    display: block;
+    margin: .5rem auto;
+    width: 8rem;
+    border-radius: 10px;
+    color: #c5d0c6;
+    text-decoration: none;
+    padding: .3rem;
+    font-weight: bold;
+    background-color: #154a44;
+    box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
+    cursor: pointer;
+  }
+
+  li input {
+    width: 8rem;
+    display: block;
+    margin: .5rem auto;
+    padding: .3rem;
+    border: none;
+    border-radius: 10px;
+    color: #c5d0c6;
+    font-size: inherit;
+    font-weight: bold;
+    box-shadow: #c5d0c6 1.95px 1.95px 2.6px;
+    background-color: inherit;
+    cursor: pointer;
+  }
+
+  li input:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  li a:hover {
+    background-color: green;
+    color: white;
+  }
 }
 </style>
