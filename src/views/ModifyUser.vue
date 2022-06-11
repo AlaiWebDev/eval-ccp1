@@ -12,8 +12,10 @@
   </div>
 </template>
 <script>
+import inputAsObjectMixin from '@/mixins/inputAsObjectMixin';
 export default {
   name: 'modifyUser',
+  mixins: [inputAsObjectMixin],
   data() {
     return {
       userDatas: [],
@@ -38,7 +40,7 @@ export default {
             this.userDatas.email = elem.value;
             break;
           case "address":
-            this.userDatas.address = elem.value;
+            this.userDatas.address = this.inputAsObject(elem.value);
             break;
           case "phone":
             this.userDatas.phone = elem.value;
@@ -47,12 +49,12 @@ export default {
             this.userDatas.website = elem.value;
             break;
           case "company":
-            this.userDatas.company = elem.value;
+            this.userDatas.company = this.inputAsObject(elem.value);
             break;
           default:
         }
       });
-    }
+    },
   },
   computed: {
     companyDatas () {

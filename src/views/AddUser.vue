@@ -16,8 +16,10 @@
   </div>
 </template>
 <script>
+import inputAsObjectMixin from '@/mixins/inputAsObjectMixin';
 export default {
   name: 'addUser',
+  mixins: [inputAsObjectMixin],
   data() {
     return {
       userFields: [],
@@ -50,15 +52,7 @@ export default {
             this.newUser.email = input.value;
             break;
           case "address":
-            input.value = input.value.replace(/[\n]/gm, ',');
-            this.addressFromInput = input.value.split(",");
-            for (let index = 0; index < this.addressFromInput.length; index++) {
-              this.addressFromInput[index] = this.addressFromInput[index].split(":");
-            }
-            const entriesAddressFromInput = new Map(this.addressFromInput);
-            const addressFromInputAsObject = Object.fromEntries(entriesAddressFromInput);
-            this.newUser.address = addressFromInputAsObject;
-            break;
+            this.newUser.address = this.inputAsObject(input.value);
             break;
           case "phone":
             this.newUser.phone = input.value;
@@ -67,14 +61,7 @@ export default {
             this.newUser.website = input.value;
             break;
           case "company":
-            input.value = input.value.replace(/[\n]/gm, ',');
-            this.companyFromInput = input.value.split(",");
-            for (let index = 0; index < this.companyFromInput.length; index++) {
-              this.companyFromInput[index] = this.companyFromInput[index].split(":");
-            }
-            const entriesCompanyFromInput = new Map(this.companyFromInput);
-            const companyFromInputAsObject = Object.fromEntries(entriesCompanyFromInput);
-            this.newUser.company = companyFromInputAsObject;
+            this.newUser.company = this.inputAsObject(input.value);
             break;
           default:
         }
