@@ -2,12 +2,12 @@
   <div class="add-user-form">
     <h1>Ajout d'un utilisateur</h1>
     <form>
-      <label v-for="(value, property, index) in userFields" :key="index">
+      <label v-for="(value, index) in userFields" :key="index">
         {{ value.toUpperCase() }}
         <input v-if="value !== 'id' && (value !== 'address' && value !== 'company')" type="text" v-bind:id="value">
-        <textarea v-model="listOfFieldsAddress" v-else-if="value === 'address'" v-bind:id="value">
+        <textarea v-model="userAddress" v-else-if="value === 'address'" v-bind:id="value">
         </textarea>
-        <textarea v-model="listOfFieldsCompany" v-else-if="value === 'company'" v-bind:id="value">
+        <textarea v-model="userCompany" v-else-if="value === 'company'" v-bind:id="value">
         </textarea>
         <input v-else type="text" v-bind:id="value">
       </label>
@@ -23,6 +23,8 @@ export default {
       userFields: [],
       datasFromInput: [],
       datasFromTextarea: [],
+      companyFromInput: [],
+      addressFromInput: [],
       userDatas: [],
       newUser: {},
       userAddress : [],
@@ -48,7 +50,15 @@ export default {
             this.newUser.email = input.value;
             break;
           case "address":
-            this.newUser.address = input.value;
+            input.value = input.value.replace(/[\n]/gm, ',');
+            this.addressFromInput = input.value.split(",");
+            for (let index = 0; index < this.addressFromInput.length; index++) {
+              this.addressFromInput[index] = this.addressFromInput[index].split(":");
+            }
+            const entriesAddressFromInput = new Map(this.addressFromInput);
+            const addressFromInputAsObject = Object.fromEntries(entriesAddressFromInput);
+            this.newUser.address = addressFromInputAsObject;
+            break;
             break;
           case "phone":
             this.newUser.phone = input.value;
@@ -57,21 +67,20 @@ export default {
             this.newUser.website = input.value;
             break;
           case "company":
-            this.newUser.company = input.value;
+            input.value = input.value.replace(/[\n]/gm, ',');
+            this.companyFromInput = input.value.split(",");
+            for (let index = 0; index < this.companyFromInput.length; index++) {
+              this.companyFromInput[index] = this.companyFromInput[index].split(":");
+            }
+            const entriesCompanyFromInput = new Map(this.companyFromInput);
+            const companyFromInputAsObject = Object.fromEntries(entriesCompanyFromInput);
+            this.newUser.company = companyFromInputAsObject;
             break;
           default:
         }
       });
       this.userDatas.push(this.newUser);
     },
-  },
-  computed: {
-    listOfFieldsAddress() {
-        return (this.userAddress.toString().split(',').join(''));
-      },
-    listOfFieldsCompany() {
-        return (this.userCompany.toString().split(',').join(''));
-      },
   },
   beforeMount() {
     this.userFields = Object.getOwnPropertyNames(this.$store.state.usersFromVuex[0]);

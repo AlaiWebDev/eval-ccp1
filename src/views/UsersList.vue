@@ -30,7 +30,7 @@
     <ul v-for="(user, index) in usersList" :key="index" v-bind:id="user.id">
       <li v-for="(oneUser, key, index) in user" :key="index">
         <span class="user-prop">{{ key }}</span>
-        <span class="user-value">{{ key === 'address' ? oneUser.city : key === 'company' ? oneUser.name : oneUser }}</span> 
+        <span class="user-value">{{ key === 'address' ? oneUser.city : key === 'company' ? oneUser.name || oneUser[index] : oneUser }}</span> 
       </li>
       <li>
         <input type="button" @click="afficherModal(user.id, user.username)" value="Supprimer">
