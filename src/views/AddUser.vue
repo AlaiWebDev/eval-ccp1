@@ -25,9 +25,12 @@ export default {
       datasFromTextarea: [],
       userDatas: [],
       newUser: {},
-      userAddress : ["city:\n", "street:\n", "zipcode:"],
-      userCompany : ["name:\n", "business:\n", "tagline:"],
+      userAddress : [],
+      userCompany : [],
     }
+  },
+  props: {
+    columns: Array
   },
   methods: {
     addUser: function () {
@@ -74,6 +77,10 @@ export default {
     this.userFields = Object.getOwnPropertyNames(this.$store.state.usersFromVuex[0]);
     this.nextId = this.$store.state.usersFromVuex[this.$store.state.usersFromVuex.length - 1].id;
     this.userDatas = this.$store.state.usersFromVuex;
+    this.userAddress.push(this.columns[0].toString().split(',').join(':\n'));
+    this.userAddress[this.userAddress.length - 1] +=":";
+    this.userCompany.push(this.columns[1].toString().split(',').join(':\n'));
+    this.userCompany[this.userCompany.length - 1] +=":";
   }
 }
 </script>
@@ -124,7 +131,7 @@ export default {
   }
 
   #company {
-     height: 55px;
+    height: 55px;
   }
 
   a {
