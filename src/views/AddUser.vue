@@ -82,7 +82,7 @@ export default {
 </script>
 <style scoped>
   .add-user-form {
-    width: 50%;
+    width: 90%;
     margin: 5rem auto;
   }
 
@@ -94,11 +94,13 @@ export default {
 
   form label {
     font-weight: bolder;
-    width: 13rem;
-    margin: .3rem auto 1rem auto;
+    width: fit-content;
+    margin: 1rem;
   }
 
   form label input[type=text]{
+    display: block;
+    width: fit-content;
     margin: auto;
     margin-top: .5rem;
     text-align: center;
@@ -110,11 +112,8 @@ export default {
     display: none;
   }
 
-  form label:nth-of-type(5), form label:nth-of-type(8) {
-    width: 22rem;
-  }
-  
   form textarea {
+    display: block;
     height: 55px;
     width: 20rem;
     border: 2px solid black;

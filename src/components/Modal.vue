@@ -37,6 +37,7 @@ export default {
 *{
   user-select: none;
 }
+
   .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -55,7 +56,7 @@ export default {
 }
 
 .modal-container {
-  width: 600px;
+  width: 70vw;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
