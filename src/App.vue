@@ -4,7 +4,7 @@
     <nav>
       <router-link to="/">Accueil</router-link>
       <router-link to="/users">Utilisateurs</router-link>
-      <router-link :to="{ name: 'addUser', params: { columns: this.$store.state.columnsFromVuex } }">Ajouter</router-link>
+      <router-link :to="{ name: 'addUser', params: { columns: this.columns } }">Ajouter</router-link>
     </nav>
   </header>
   <router-view/>

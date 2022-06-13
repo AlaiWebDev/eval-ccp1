@@ -11,10 +11,10 @@ export default createStore({
     setUsersFromVuex(state, nouvelle_valeur) {
       state.usersFromVuex = nouvelle_valeur;
     },
-    deleteUserFromVuex(state,idUser) {
+    deleteUserFromVuex(state, idUser) {
       for (const element of state.usersFromVuex) {
         if (element.id === idUser) {
-          state.usersFromVuex.splice(state.usersFromVuex.findIndex(v => v.id === idUser), 1);
+          state.usersFromVuex.splice(state.usersFromVuex.findIndex(user => user.id === idUser), 1);
         }
       }
     },
