@@ -13,47 +13,43 @@
 </template>
 <script>
 import inputAsObjectMixin from '@/mixins/inputAsObjectMixin';
+import sortObjectProperties from '@/mixins/sortObjectPropertiesMixin';
 export default {
   name: 'modifyUser',
-  mixins: [inputAsObjectMixin],
+  mixins: [
+    inputAsObjectMixin,
+    sortObjectProperties
+    ],
   data() {
     return {
       userDatas: [],
       disabled: false,
       datasFromInput: [],
       myWorkingVarCompany: "",
-      myWorkingVarAddress: ""
+      myWorkingVarAddress: "",
+      myArray: []
     }
   },
   methods: {
     majUser: function () {
       this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
-      this.datasFromInput.forEach(elem => {
-        switch (elem.id) {
-          case "name":
-            this.userDatas.name = elem.value;
-            break;
-          case "username":
-            this.userDatas.username = elem.value;
-            break;
-          case "email":
-            this.userDatas.email = elem.value;
-            break;
-          case "address":
-            this.userDatas.address = this.inputAsObject(elem.value);
-            break;
-          case "phone":
-            this.userDatas.phone = elem.value;
-            break;
-          case "website":
-            this.userDatas.website = elem.value;
-            break;
-          case "company":
-            this.userDatas.company = this.inputAsObject(elem.value);
-            break;
-          default:
+      this.userDatas = this.sortObject(this.userDatas);
+      let res3 = [];
+      for (const elem of this.datasFromInput) {
+        this.myArray.push(elem.id);
+      }
+      res3 = this.myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
+      for (const elem of this.datasFromInput) {
+        if (elem.id !== "company" && elem.id !== "address") {
+          res3[elem.id] = elem.value;
+        } else {
+          res3[elem.id] = this.inputAsObject(elem.value);
         }
-      });
+      }
+      this.sortObject(this.userDatas);
+      this.userDatas = {...res3};
+      this.$store.commit("setCurrentUser", this.userDatas);
+      this.$store.commit("changeUser", this.id);
     },
   },
   computed: {
@@ -74,6 +70,8 @@ export default {
     ],
   beforeMount() {
     this.userDatas = this.$store.state.usersFromVuex[(this.$store.state.usersFromVuex).findIndex(v => parseInt(v.id) === parseInt(this.id))];
+    this.$store.commit("setCurrentUser", this.userDatas);
+    console.log("Store user data ", this.$store.state.currentUser);
   }
 }
 </script>

@@ -17,9 +17,13 @@
 </template>
 <script>
 import inputAsObjectMixin from '@/mixins/inputAsObjectMixin';
+import sortObjectProperties from '@/mixins/sortObjectPropertiesMixin';
 export default {
   name: 'addUser',
-  mixins: [inputAsObjectMixin],
+  mixins: [
+    inputAsObjectMixin,
+    sortObjectProperties
+    ],
   data() {
     return {
       userFields: [],
@@ -29,8 +33,10 @@ export default {
       addressFromInput: [],
       userDatas: [],
       newUser: {},
+      nextId: "",
       userAddress : [],
       userCompany : [],
+      myArray: []
     }
   },
   props: {
@@ -39,33 +45,22 @@ export default {
   methods: {
     addUser: function () {
       this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
-      this.datasFromInput.forEach(input => {
       this.newUser.id = (this.nextId) + 1;
-        switch (input.id) {
-          case "name":
-            this.newUser.name = input.value;
-            break;
-          case "username":
-            this.newUser.username = input.value;
-            break;
-          case "email":
-            this.newUser.email = input.value;
-            break;
-          case "address":
-            this.newUser.address = this.inputAsObject(input.value);
-            break;
-          case "phone":
-            this.newUser.phone = input.value;
-            break;
-          case "website":
-            this.newUser.website = input.value;
-            break;
-          case "company":
-            this.newUser.company = this.inputAsObject(input.value);
-            break;
-          default:
+      this.userDatas = this.sortObject(this.userDatas);
+      let res3 = [];
+      for (const elem of this.datasFromInput) {
+        this.myArray.push(elem.id);
+      }
+      res3 = this.myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
+      for (const elem of this.datasFromInput) {
+        if (elem.id !== "company" && elem.id !== "address") {
+          res3[elem.id] = elem.value;
+        } else {
+          res3[elem.id] = this.inputAsObject(elem.value);
         }
-      });
+      }
+      this.sortObject(this.userDatas);
+      this.newUser = {...res3};
       this.userDatas.push(this.newUser);
     },
   },

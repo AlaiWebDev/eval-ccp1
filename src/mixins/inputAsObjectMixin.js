@@ -7,8 +7,7 @@ export default {
                   contentFromInput[index] = contentFromInput[index].split(":");
                 }
             const entriesFromInput = new Map(contentFromInput);
-            const objectFromInput = Object.fromEntries(entriesFromInput);
-            return objectFromInput;
+            return Object.fromEntries(entriesFromInput);
       }
     }
   };
