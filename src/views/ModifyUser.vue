@@ -71,7 +71,6 @@ export default {
   beforeMount() {
     this.userDatas = this.$store.state.usersFromVuex[(this.$store.state.usersFromVuex).findIndex(v => parseInt(v.id) === parseInt(this.id))];
     this.$store.commit("setCurrentUser", this.userDatas);
-    console.log("Store user data ", this.$store.state.currentUser);
   }
 }
 </script>

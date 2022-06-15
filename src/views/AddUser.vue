@@ -11,7 +11,7 @@
         </textarea>
         <input v-else type="text" v-bind:id="value">
       </label>
-      <router-link :to="{name: 'usersList'}" exact v-on:click="addUser">Valider</router-link>
+      <router-link :to="{name: 'usersList'}" v-on:click="addUser">Valider</router-link>
     </form>
   </div>
 </template>
@@ -45,7 +45,6 @@ export default {
   methods: {
     addUser: function () {
       this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
-      this.newUser.id = (this.nextId) + 1;
       this.userDatas = this.sortObject(this.userDatas);
       let res3 = [];
       for (const elem of this.datasFromInput) {
@@ -61,7 +60,8 @@ export default {
       }
       this.sortObject(this.userDatas);
       this.newUser = {...res3};
-      this.userDatas.push(this.newUser);
+      this.newUser.id = (this.nextId) + 1;
+      this.$store.commit('addUser',this.newUser);
     },
   },
   beforeMount() {

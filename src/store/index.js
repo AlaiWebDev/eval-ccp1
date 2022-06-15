@@ -18,6 +18,9 @@ export default createStore({
     changeUser(state, idUser) {
       state.usersFromVuex[state.usersFromVuex.findIndex(user => user.id == idUser)] = state.currentUser;
     },
+    addUser(state, newUser) {
+      state.usersFromVuex.push(newUser);
+    },
     deleteUserFromVuex(state, idUser) {
       for (const element of state.usersFromVuex) {
         if (element.id === idUser) {
