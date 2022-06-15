@@ -1,17 +1,17 @@
 <template>
   <div class="home">
     <h1>Bienvenue sur l'interface de gestion des utilisateurs</h1>
-    <img v-bind:src="imgSrc" alt="Utilisateurs">
+    <img :src="image" alt="Utilisateurs">
   </div>
 </template>
 
 <script>
-
+import image from "@/assets/img/utilisateurs.jpg"
 export default {
   name: 'AccueilView',
   data() {
     return {
-      imgSrc: 'utilisateurs.jpg'
+      image: image
     };
   },
 }
