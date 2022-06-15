@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img alt="Logo ID Formation" src="@/assets/logo-Id-Formation.png">
+    <img alt="Logo ID Formation" src="@/assets/img/logo-id-formation.png">
     <nav>
       <router-link to="/">Accueil</router-link>
       <router-link to="/users">Utilisateurs</router-link>
