@@ -39,11 +39,7 @@ export default {
       }
       myArray = myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
       for (const elem of this.datasFromInput) {
-        if (elem.id !== "company" && elem.id !== "address") {
-          myArray[elem.id] = elem.value;
-        } else {
-          myArray[elem.id] = this.inputAsObject(elem.value);
-        }
+        myArray[elem.id] = elem.id !== "company" && elem.id !== "address" ? elem.value : this.inputAsObject(elem.value);
       }
       this.sortObject(this.userDatas);
       this.userDatas = {...myArray};
