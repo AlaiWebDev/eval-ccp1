@@ -56,13 +56,13 @@ export default {
       }
       this.sortObject(this.userDatas);
       this.newUser = {...myArray};
-      this.newUser.id = (this.$store.state.usersFromVuex[this.$store.state.usersFromVuex.length - 1].id) + 1;
+      this.newUser.id = (this.$store.state.users[this.$store.state.users.length - 1].id) + 1;
       this.$store.commit('addUser',this.newUser);
     },
   },
   beforeMount() {
-    this.userFields = Object.getOwnPropertyNames(this.$store.state.usersFromVuex[0]);
-    this.userDatas = this.$store.state.usersFromVuex;
+    this.userFields = Object.getOwnPropertyNames(this.$store.state.users[0]);
+    this.userDatas = this.$store.state.users;
     this.userAddress.push(this.columns[0].toString().split(',').join(':\n'));
     this.userAddress[this.userAddress.length - 1] +=":";
     this.userCompany.push(this.columns[1].toString().split(',').join(':\n'));

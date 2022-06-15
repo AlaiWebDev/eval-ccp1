@@ -29,10 +29,10 @@ export default {
       delete user.address.geo;
       delete user.address.suite;
     })
-    this.$store.commit("setUsersFromVuex", this.usersList);
+    this.$store.commit("setUsers", this.usersList);
     this.columns.push(Object.keys(this.usersList[0].address));
     this.columns.push(Object.keys(this.usersList[0].company));
-    this.$store.commit("setColumnsFromVuex", Object.values(this.columns));
+    this.$store.commit("setColumns", Object.values(this.columns));
     });
   }
 }

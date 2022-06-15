@@ -57,7 +57,6 @@ export default {
     return {
       usersList: [],
       columns: [],
-      idLigne: 0,
       showModal: false,
       activeUserId: 0,
       activeUserName: ""
@@ -67,7 +66,7 @@ export default {
   },
   methods: {
     supprimerLigne: function ({idUser}) {
-      this.$store.commit("deleteUserFromVuex", idUser);
+      this.$store.commit("deleteUser", idUser);
       this.showModal = false;
       
     },
@@ -78,7 +77,7 @@ export default {
     }
   },
   beforeMount() {
-    this.usersList = this.$store.state.usersFromVuex;
+    this.usersList = this.$store.state.users;
     this.usersList.forEach(user => {
       delete user.address.geo;
       delete user.address.suite;

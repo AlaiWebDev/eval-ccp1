@@ -68,7 +68,7 @@ export default {
       "currentUser"
     ],
   beforeMount() {
-    this.userDatas = this.$store.state.usersFromVuex[(this.$store.state.usersFromVuex).findIndex(v => parseInt(v.id) === parseInt(this.id))];
+    this.userDatas = this.$store.state.users[(this.$store.state.users).findIndex(v => parseInt(v.id) === parseInt(this.id))];
     this.$store.commit("setCurrentUser", this.userDatas);
   }
 }
