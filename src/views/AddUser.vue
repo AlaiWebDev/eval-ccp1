@@ -29,14 +29,10 @@ export default {
       userFields: [],
       datasFromInput: [],
       datasFromTextarea: [],
-      companyFromInput: [],
-      addressFromInput: [],
       userDatas: [],
       newUser: {},
-      nextId: "",
       userAddress : [],
-      userCompany : [],
-      myArray: []
+      userCompany : []
     }
   },
   props: {
@@ -46,27 +42,26 @@ export default {
     addUser: function () {
       this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
       this.userDatas = this.sortObject(this.userDatas);
-      let res3 = [];
+      let myArray = [];
       for (const elem of this.datasFromInput) {
-        this.myArray.push(elem.id);
+        myArray.push(elem.id);
       }
-      res3 = this.myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
+      myArray = myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
       for (const elem of this.datasFromInput) {
         if (elem.id !== "company" && elem.id !== "address") {
-          res3[elem.id] = elem.value;
+          myArray[elem.id] = elem.value;
         } else {
-          res3[elem.id] = this.inputAsObject(elem.value);
+          myArray[elem.id] = this.inputAsObject(elem.value);
         }
       }
       this.sortObject(this.userDatas);
-      this.newUser = {...res3};
-      this.newUser.id = (this.nextId) + 1;
+      this.newUser = {...myArray};
+      this.newUser.id = (this.$store.state.usersFromVuex[this.$store.state.usersFromVuex.length - 1].id) + 1;
       this.$store.commit('addUser',this.newUser);
     },
   },
   beforeMount() {
     this.userFields = Object.getOwnPropertyNames(this.$store.state.usersFromVuex[0]);
-    this.nextId = this.$store.state.usersFromVuex[this.$store.state.usersFromVuex.length - 1].id;
     this.userDatas = this.$store.state.usersFromVuex;
     this.userAddress.push(this.columns[0].toString().split(',').join(':\n'));
     this.userAddress[this.userAddress.length - 1] +=":";
