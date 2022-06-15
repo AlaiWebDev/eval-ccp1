@@ -27,27 +27,26 @@ export default {
       datasFromInput: [],
       myWorkingVarCompany: "",
       myWorkingVarAddress: "",
-      myArray: []
     }
   },
   methods: {
     majUser: function () {
       this.datasFromInput = document.querySelectorAll("input[type=text], textarea");
       this.userDatas = this.sortObject(this.userDatas);
-      let res3 = [];
+      let myArray = [];
       for (const elem of this.datasFromInput) {
-        this.myArray.push(elem.id);
+        myArray.push(elem.id);
       }
-      res3 = this.myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
+      myArray = myArray.reduce((acc,curr)=> (acc[curr]='',acc),{});
       for (const elem of this.datasFromInput) {
         if (elem.id !== "company" && elem.id !== "address") {
-          res3[elem.id] = elem.value;
+          myArray[elem.id] = elem.value;
         } else {
-          res3[elem.id] = this.inputAsObject(elem.value);
+          myArray[elem.id] = this.inputAsObject(elem.value);
         }
       }
       this.sortObject(this.userDatas);
-      this.userDatas = {...res3};
+      this.userDatas = {...myArray};
       this.$store.commit("setCurrentUser", this.userDatas);
       this.$store.commit("changeUser", this.id);
     },
