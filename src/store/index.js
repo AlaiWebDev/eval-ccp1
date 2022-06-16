@@ -22,11 +22,7 @@ export default createStore({
       state.users.push(newUser);
     },
     deleteUser(state, idUser) {
-      for (const element of state.users) {
-        if (element.id === idUser) {
-          state.users.splice(state.users.findIndex(user => user.id === idUser), 1);
-        }
-      }
+      state.users.splice(state.users.findIndex(user => user.id === idUser), 1);
     },
     setColumns(state, nouvelle_valeur) {
       state.columns = nouvelle_valeur;

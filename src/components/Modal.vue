@@ -10,7 +10,7 @@
             <slot name="footer">
               <button
                 class="modal-default-button"
-                @click="$emit('confirm', { idUser: userId })"
+                @click="$emit('confirm', userId)"
               >CONFIRMER</button>
               <button
                 class="modal-default-button"

@@ -122,7 +122,7 @@ export default {
   }
 
   #company {
-     height: 70px;
+    height: 70px;
   }
 
   a {

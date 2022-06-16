@@ -65,7 +65,7 @@ export default {
   props: {
   },
   methods: {
-    supprimerLigne: function ({idUser}) {
+    supprimerLigne: function (idUser) {
       this.$store.commit("deleteUser", idUser);
       this.showModal = false;
       
